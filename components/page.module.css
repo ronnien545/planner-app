@@ -140,6 +140,14 @@
     font-size: 20px;
     z-index: 100;
   }
+   
+  .AddIcon{
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 100;
+    margin-left:0.2em;
+    margin-bottom: -0.13em;
+  }
 
   .iconCircleAdd{
     display: flex;

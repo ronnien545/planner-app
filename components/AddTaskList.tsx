@@ -25,7 +25,7 @@ function AddTaskList(){
     return(<button className={styles.addLstButton} onClick={()=>onAdd()}>
         <span className={styles.iconCircle}>
         Create a New List
-        <CgAdd className={styles.icon}/>
+        <CgAdd className={styles.AddIcon}/>
         </span>
       </button>)
 }
