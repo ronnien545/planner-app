@@ -55,29 +55,42 @@
 
 .TableContainer{
   grid-row:2;
-  width:30%;
+  width:40%;
 }
 
 .TaskTable{
   width:100%;
   background-color: white;
   border-collapse:collapse;
+  margin-left:50px;
+}
+
+.IconCircle {
+  display: inline-flex;      
+  align-items: center;        
+  justify-content: center;    
+  width: 30px;               
+  height: 30px;              
+  border-radius: 50%; 
+  border: 1px solid #302e2e;    
+  cursor: pointer;           
 }
 
 .TaskTable th,
 .TaskTable td {
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid #ddd;
 }
 
 .TaskTable th:first-child,
 .TaskTable td:first-child {
   text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 .TaskTable th:nth-child(2),
 .TaskTable td:nth-child(2) {
   text-align: center;
+  border-bottom: 1px solid #ddd;
 }
 
 .TaskTable th {
@@ -93,10 +106,20 @@
   transition: background-color 0.2s ease;
 }
 
-.TaskRow:hover {
+.hovered{
+  background-color: #ff5733;
+}
+
+.FirstCol:hover{
   background-color: #414344;
   color:aliceblue;
 }
+
+.SecondCol:hover{
+  background-color: #414344;
+  color:aliceblue;
+}
+
 
 .TaskRow:active{
   transform: scale(1.05); 
