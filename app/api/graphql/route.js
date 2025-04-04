@@ -38,6 +38,7 @@ const typeDefs = `#graphql
 
   type Mutation {
     createList(title:String!,newList:Boolean!): String
+    deleteList(TaskListID: ID!):String
     updateList(TaskListID: ID!,title:String!):String
     createEntryItem(TaskListID: ID!,id: Int!,date:String!, title:String!, content: String!,edit:Boolean!): EntryItem
     updateEntryItem(TaskListID: ID!, id: Int!,date:String!, title:String!, content: String!,edit:Boolean!): EntryItem
@@ -108,6 +109,20 @@ const resolvers = {
         );
 
         return "Updated task list";
+      },
+
+      deleteList: async(_,{TaskListID})=>{
+         await client.connect();
+         const db = client.db("EntryItemsDB");
+         const collection = db.collection('TaskList');
+
+         const objectId = new ObjectId(String(TaskListID));
+
+         await collection.deleteOne({
+          _id: objectId
+         });
+
+         return "deleted task list";
       },
       createEntryItem: async (_, { TaskListID,id,date, title, content,edit}) => {
         await client.connect();

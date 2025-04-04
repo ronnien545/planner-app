@@ -12,8 +12,8 @@ import AddEntryBtn from '@/components/AddEntryBtn';
 import AddTaskList from '@/components/AddTaskList';
 import ModifyListTitle from '@/components/ModifyListTitle';
 import { AiOutlineLoading } from "react-icons/ai";
-import { CgPen } from "react-icons/cg";
-import { CgTrash } from "react-icons/cg";
+import { CgPen } from "react-icons/cg";;
+import DeleteTaskList from '@/components/DeleteTaskList';
 
 type EntryItem= {
   id:number;
@@ -117,7 +117,7 @@ export default function Home() {
               <td><div className={styles.IconCircle}  onClick={() => onEdit(id)} style={{ backgroundColor: hoverIdEdit === id ? '#d9e00b' : '', color:hoverIdEdit === id?'aliceblue':''}} onMouseEnter={() => setHoverIdEdit(id)} onMouseLeave={() => setHoverIdEdit('')}><CgPen/>
               </div>
               {'   '}
-              <div className={styles.IconCircle} style={{ backgroundColor: hoverIdDelete === item._id ? '#e04b0b' : '', color:hoverIdDelete === item._id?'aliceblue':''}} onMouseEnter={() => setHoverIdDelete(item._id)} onMouseLeave={() => setHoverIdDelete('')}><CgTrash/>
+              <div className={styles.IconCircle} style={{ backgroundColor: hoverIdDelete === item._id ? '#e04b0b' : '', color:hoverIdDelete === item._id?'aliceblue':''}} onMouseEnter={() => setHoverIdDelete(item._id)} onMouseLeave={() => setHoverIdDelete('')}><DeleteTaskList TaskListID={item._id}/>
               </div>
               </td>
             </tr>

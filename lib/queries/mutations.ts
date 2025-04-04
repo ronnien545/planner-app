@@ -36,6 +36,12 @@ export const CREATE_LIST= gql`
   }
 `;
 
+export const DELETE_LIST= gql`
+  mutation deleteList($TaskListID: ID!){
+    deleteList(TaskListID: $TaskListID)
+  }
+`;
+
 export const UPDATE_LIST= gql`
   mutation updateList($TaskListID: ID!, $title: String!){
     updateList(TaskListID:$TaskListID, title:$title)
