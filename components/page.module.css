@@ -170,7 +170,7 @@
   }
   
   .addLstButton{
-    width: 100%;
+    width: 79%;
     padding: 0.75rem 1rem;
     cursor: pointer;
     background-color: #3c8fee;
@@ -179,6 +179,7 @@
     border-radius: 0 0 8px 8px;
     font-size: 1rem;
     transition: background-color 0.2s ease;
+    margin-left:50px;
   }
   
   .addLstButton:hover,.saveTitleBtn:hover {

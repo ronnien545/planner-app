@@ -9,6 +9,7 @@ type EditItem = {
     date:string;
     title:string;
     content:string;
+    
 }  
 
 function UpdateEntry({TaskListID,EditObject}:{TaskListID:string,EditObject:EditItem}){

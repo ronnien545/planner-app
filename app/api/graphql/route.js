@@ -43,6 +43,7 @@ const typeDefs = `#graphql
     createEntryItem(TaskListID: ID!,id: Int!,date:String!, title:String!, content: String!,edit:Boolean!): EntryItem
     updateEntryItem(TaskListID: ID!, id: Int!,date:String!, title:String!, content: String!,edit:Boolean!): EntryItem
     deleteEntryItem(TaskListID: ID!, id: Int!): String
+    updateOrder(TaskListID: ID!,old_id:Int!,new_id:Int!): String
   }
 `;
 
@@ -65,7 +66,26 @@ const resolvers = {
         console.log(TaskListID)
 
         const objectId = new ObjectId(String(TaskListID));
-        const tasklist = await collection.findOne({ _id: objectId });
+        // const tasklist = await collection.findOne({ _id: objectId });
+
+        const tasklist = await collection.aggregate([
+          { $match: { _id: objectId } },
+          {
+            $addFields: {
+              entries: {
+                $sortArray: {
+                  input: "$entries",
+                  sortBy: { id: 1 } 
+                }
+              }
+            }
+          }
+        ]).next();
+        // const tasklist = await collection.find({ _id: objectId }).sort({ 'entries.id': 1 }).toArray();;
+        // if (tasklist.length === 0) {
+        //   throw new Error("Document not found"); 
+        // }
+        // const document = tasklist[0];
         console.log('Task:', tasklist);
         return tasklist;
       },
@@ -182,6 +202,39 @@ const resolvers = {
 
         return `Entry item with id ${id} deleted`;
       },
+      updateOrder: async (_,{TaskListID,old_id,new_id}) =>{
+        await client.connect();
+        const db = client.db('EntryItemsDB');
+        const collection = db.collection('TaskList');
+
+        const objectId = new ObjectId(String(TaskListID));
+         
+
+        const document = await collection.findOne({ _id: objectId });
+        
+        const e_index = document.entries.findIndex((entry) => entry.id === old_id);
+
+        if (old_id !== new_id) {
+        await collection.updateOne(
+          { _id: objectId, 'entries.id': { $gt: old_id} }, 
+          { $inc: { 'entries.$[elem].id': -1 } }, 
+          { arrayFilters: [{ 'elem.id': { $gt: old_id} }] }
+        );
+
+        await collection.updateOne(
+          { _id: objectId, 'entries.id': { $gt: new_id-1} }, 
+          { $inc: { 'entries.$[elem].id': 1 } }, 
+          { arrayFilters: [{ 'elem.id': { $gt: new_id-1} }] }
+        );
+        }
+        await collection.updateOne(
+          {_id: objectId},
+          {$set: {[`entries.${e_index}.id`]:new_id}}
+        );
+
+        return `Order of item with id ${old_id} updated`;
+
+      }
     },
   };
 

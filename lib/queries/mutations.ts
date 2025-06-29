@@ -47,3 +47,9 @@ export const UPDATE_LIST= gql`
     updateList(TaskListID:$TaskListID, title:$title)
   }
 `;
+
+export const UPDATE_ORDER = gql`
+  mutation updateOrder($TaskListID: ID!, ,$old_id:Int!,$new_id:Int!){
+    updateOrder(TaskListID: $TaskListID, old_id:$old_id, new_id:$new_id)
+  }
+`;

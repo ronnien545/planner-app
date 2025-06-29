@@ -12,6 +12,7 @@
     "@apollo/client": "^3.13.4",
     "@apollo/server": "^4.11.3",
     "@as-integrations/next": "^3.2.0",
+    "@hello-pangea/dnd": "^18.0.1",
     "graphql": "^16.10.0",
     "mongodb": "^6.14.2",
     "next": "15.2.1",
